@@ -1,0 +1,10 @@
+
+/* 여기는 평범하게 */
+.react{
+	background: aqua;
+	color: black;
+	
+	font-size: 48px;
+	font-weight: bold;
+	padding:16;
+}
