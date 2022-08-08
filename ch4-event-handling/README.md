@@ -11,4 +11,5 @@ html onclick > [React] onClock
 
 3. DOM에만 이벤트 설정 가능 
 리액트 컴포넌트엔 설정 불가 
-> 설정해봤자 이벤트 이름을 가진 props가 생성
+
+설정해봤자 이벤트 이름을 가진 props가 생성
