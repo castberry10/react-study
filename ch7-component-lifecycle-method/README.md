@@ -7,3 +7,15 @@ ErrorBoundary는 에러 잡아주는 컴포넌ㄴ트
 
 
 이때 에러 바운더리js가 알아서 잘 처리해준다. 
+
+.    마운트	|	업데이트	|	언마운트
+constructor					 componentWillUnmount
+.	<-getDerivedStateFromProps->
+.			shouldComponentUpdate
+.				true or false
+		
+.	<--------render--------->
+.			getSnapshotBeforeUpdate
+.			componentDidUpdate
+
+componentDidMount
