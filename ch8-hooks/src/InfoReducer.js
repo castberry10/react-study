@@ -3,32 +3,26 @@ function reducer(state, action){
 	return{
 		...state,
 		[action.name]: action.value
-	}
+	};
 }
-const Info = () => {
+const InfoReducer = () => {
 	const [state, dispatch] = useReducer(reducer, {
 		name: '',
 		nickname:''
 	});
 	const {name, nickname} = state
-	useEffect(() => {
-		console.log('이펙트 effect')
-		return () => {
-			console.log('클린업 cleanup')
-			console.log(name + ' + cleanup ')
-		}
-	}, [name])
-	const onChangeName = e => {
-		setName(e.target.value);
+	
+	const onChange = e => {
+		dispatch(e.target)
 	}
-	const onChangeNickname = e => {
-		setNickname(e.target.value);
-	}
+	// 아래 onChange 호출 -> onChange안에 dispatch호출 이때 e.target [<input>] 을 보냄
+	//dispatch는 useReducer 에 명시된 state를 바꾸는 함수 -> reducer에 action이 e.target으로 들어감
+	//reducer에선 새로운 상태를 반환해야함(불변성을 지키며) > ...state로 복사후 [action.name]: action.value -> [e.target.name]: e.target.value 수정
 	return(
 		<div>
 			<div>
-				<input value={name} onChange = {onChangeName} />
-				<input value={nickname} onChange = {onChangeNickname} />
+				<input name="name" value={name} onChange = {onChange} /> 
+				<input name="nickname"value={nickname} onChange = {onChange} />
 				
 			</div>
 			<div>
@@ -44,4 +38,4 @@ const Info = () => {
 	)
 }
 
-export default Info;
+export default InfoReducer;

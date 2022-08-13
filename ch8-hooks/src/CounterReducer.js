@@ -11,7 +11,9 @@ function reducer(state, action){
 }
 const CounterReducer = () => {
 	const [state, dispatch] = useReducer(reducer, {value: 0});
-	
+	//아래에서 onClick발생시 dispatch(객체1)실행
+	//>dispatch는 state를 바꾸는 함수. > reducer로 넘어감
+	//> reducer에 action이 객체1로 치환됨> 객체1.type 조회하여 밸류 바꿈 
 	return(
 	<div>
 		<p>

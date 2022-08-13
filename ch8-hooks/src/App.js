@@ -2,6 +2,8 @@ import {useState} from 'react'
 import Counter from './Counter';
 import CounterReducer from './CounterReducer';
 import Info from './Info'
+import InfoReducer from './InfoReducer'
+import Average from './Average'
 const App = () => {
 	const [visible, setVisible] = useState(false);
 	return (
@@ -21,6 +23,9 @@ const App = () => {
 			CounterReducer.js
 			<hr/>
 			<CounterReducer/>
+			<InfoReducer/>
+			<hr/>
+			<Average/>
     	</div>
   	);
 }
