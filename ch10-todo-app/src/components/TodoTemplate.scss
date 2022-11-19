@@ -1,0 +1,23 @@
+.TodoTemplate{
+    width: 512px;
+    margin-left: auto;
+    margin-right: auto; // 좌우정렬 
+
+    margin-top: 6rem;
+    border-radius: 4px;//귀퉁이 둥글하게 
+    overflow:hidden;
+    .app-title{
+        background: #22b8cf;
+        color:white;//글자색
+        height: 4rem;//div 세로
+        font-size: 1.5rem; //글자크기
+        display: flex;
+        align-items: center; //y축(위아래) 중간정렬
+        justify-content: center;//x축 정렬
+
+    }
+    .content{
+        background: white;
+
+    }
+}
