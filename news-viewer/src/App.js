@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import axios from 'axios';
-
+import newsjson from './news'
 const App = () => {
 	const [data, setData] = useState(null);
 	const onClick = async () => {
 		try{
-			const response = await axios.get(
-				'https://jsonplaceholder.typicode.com/todos/1',
-			);
-			setData(response.data);
+			// const response = await axios.get(
+			// 	'https://newsapi.org/v2/top-headlines?country=kr&apiKey=8378a7d0ee24456ba337d378adde3f51',
+			// );
+			// setData(response.data);
+			setData(newsjson)
 		}catch(e){
 			console.log(e);
 		}
