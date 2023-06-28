@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import NewsItem from './NewsItem'
+import {useState, useEffect } from 'react';
+import axios from 'axios';
 
 const NewsListBlock = styled.div`
 	box-sizing: border-box;
@@ -21,19 +23,36 @@ const sampleActicle ={
 };
 
 const NewsList = () => {
+	const [articles, setArticles] = useState(null);
+	const [loading, setLoding] = useState(false);
+	
+	useEffect(()=>{
+		const fetchData = async () => {
+			setLoding(true);
+			try{
+				const response = await axios.get('https://news-api-for-develop-nxzcc.run.goorm.site/');
+				setArticles(response.data.articles);
+			} catch(e){
+				console.log(e);
+			}
+			setLoding(false);
+		};
+		fetchData();
+	}, []);
+	
+	if (loading) {
+		return <NewsListBlock> 대기중 . . . </NewsListBlock>;
+	}
+	if (!articles){
+		return null;
+	}
 	return(
 		<NewsListBlock>
-			<NewsItem article={sampleActicle} />
-			<NewsItem article={sampleActicle} />
-			<NewsItem article={sampleActicle} />
-			<NewsItem article={sampleActicle} />
-			<NewsItem article={sampleActicle} />
-			<NewsItem article={sampleActicle} />
-			<NewsItem article={sampleActicle} />
-			<NewsItem article={sampleActicle} />
-			
-		</NewsListBlock>	
-	)
-}
+		{articles.map(article =>(
+			<NewsItem key = {article.url} article={article} /> 
+			))}
+		</NewsListBlock>
+	);
+};
 
 export default NewsList;
