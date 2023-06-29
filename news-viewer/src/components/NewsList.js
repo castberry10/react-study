@@ -30,7 +30,7 @@ const NewsList = () => {
 		const fetchData = async () => {
 			setLoding(true);
 			try{
-				const response = await axios.get('https://news-api-for-develop-nxzcc.run.goorm.site/');
+				const response = await axios.get('https://newsapi.run.goorm.site/');
 				setArticles(response.data.articles);
 			} catch(e){
 				console.log(e);
