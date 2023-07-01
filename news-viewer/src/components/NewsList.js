@@ -22,7 +22,7 @@ const sampleActicle ={
 	urlToImage: 'https://via.placeholder.com/160',
 };
 
-const NewsList = () => {
+const NewsList = ({category}) => {
 	const [articles, setArticles] = useState(null);
 	const [loading, setLoding] = useState(false);
 	
@@ -30,7 +30,9 @@ const NewsList = () => {
 		const fetchData = async () => {
 			setLoding(true);
 			try{
-				const response = await axios.get('https://newsapi.run.goorm.site/');
+				const query = category === 'all' ? '' : `&category=${category}`;
+				// const response = await axios.get(`https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=8378a7d0ee24456ba337d378adde3f51`);
+				const response = await axios.get(`https://newsapi.run.goorm.site/?country=kr${query}`);
 				setArticles(response.data.articles);
 			} catch(e){
 				console.log(e);
@@ -38,7 +40,7 @@ const NewsList = () => {
 			setLoding(false);
 		};
 		fetchData();
-	}, []);
+	}, [category]);
 	
 	if (loading) {
 		return <NewsListBlock> 대기중 . . . </NewsListBlock>;
