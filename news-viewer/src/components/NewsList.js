@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import NewsItem from './NewsItem'
-import {useState, useEffect } from 'react';
 import axios from 'axios';
+import usePromise from '../lib/usePromise';
 
 const NewsListBlock = styled.div`
 	box-sizing: border-box;
@@ -23,31 +23,25 @@ const sampleActicle ={
 };
 
 const NewsList = ({category}) => {
-	const [articles, setArticles] = useState(null);
-	const [loading, setLoding] = useState(false);
-	
-	useEffect(()=>{
-		const fetchData = async () => {
-			setLoding(true);
-			try{
-				const query = category === 'all' ? '' : `&category=${category}`;
-				// const response = await axios.get(`https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=8378a7d0ee24456ba337d378adde3f51`);
-				const response = await axios.get(`https://newsapi.run.goorm.site/?country=kr${query}`);
-				setArticles(response.data.articles);
-			} catch(e){
-				console.log(e);
-			}
-			setLoding(false);
-		};
-		fetchData();
-	}, [category]);
+	const [loading, response, error] = usePromise(()=>{
+		const query = category === 'all' ? '' :`&category=${category}`
+
+		// axios.get(`https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=8378a7d0ee24456ba337d378adde3f51`); // localhost에서는 이 주석을 사용 
+		return axios.get(`https://newsapi.run.goorm.site/?country=kr${query}`)
+	}, [category])
 	
 	if (loading) {
 		return <NewsListBlock> 대기중 . . . </NewsListBlock>;
 	}
-	if (!articles){
+
+	if (!response){
 		return null;
 	}
+	if (error){
+		return <NewsListBlock> 에러발생 </NewsListBlock>;
+	}
+
+	const {articles} = response.data;
 	return(
 		<NewsListBlock>
 		{articles.map(article =>(
