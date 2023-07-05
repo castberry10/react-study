@@ -8,13 +8,14 @@ const ColorContext = createContext({
 	}
 });
 
-const ColorProvider= ({children}) => {
+
+const ColorProvider = ({children}) => {
 	const [color, setColor] = useState('black');
 	const [subcolor, setSubcolor] = useState('red');
 	
 	const value = {
 		state: {color, subcolor},
-		action: {setColor, setSubcolor}
+		actions: {setColor, setSubcolor}
 	};
 	
 	return (
@@ -23,6 +24,7 @@ const ColorProvider= ({children}) => {
 };
 
 const {Consumer: ColorConsumer} = ColorContext;
+// <== const ColorConsumer = ColorContext.Consumer
 
 export {ColorProvider, ColorConsumer};
 
