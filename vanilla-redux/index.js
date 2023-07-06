@@ -36,7 +36,7 @@ function reducer(state = initialState, action){
 		case DECREASE:
 			return{
 				...state,
-				toggle: state.counter - 1
+				counter: state.counter - 1
 			};
 		default:
 			return state;
@@ -55,6 +55,22 @@ const render = () => {
 		divToggle.classList.remove('active');
 
 	}
-}
+
+	counter.innerText = state.counter;
+};
 
 render();
+store.subscribe(render);
+
+divToggle.onclick = () => {
+	store.dispatch(toggleSwitch());
+};
+
+btnIncrease.onclick = () => {
+	store.dispatch(increase(1));
+};
+
+btnDecrease.onclick = () => {
+	store.dispatch(decrease());
+};
+
