@@ -15,3 +15,28 @@ const initialState = {
 	toggle: false,
 	counter : 0
 };
+
+function reducer(state = initialState, action){
+	switch(action.type){
+		case TOGGLE_SWITCH:
+			return{
+				...state,
+				toggle: !state.toggle
+			};
+			
+		case INCREASE:
+			return{
+				...state,
+				counter: state.counter + action.difference
+			};
+			
+		case DECREASE:
+			return{
+				...state,
+				toggle: state.counter - 1
+			};
+		default:
+			return state;
+	}
+
+}
