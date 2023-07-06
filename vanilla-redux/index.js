@@ -1,3 +1,5 @@
+import {createStore} from 'redux';
+
 const divToggle = document.querySelector('.toggle');
 const counter = document.querySelector('h1');
 const btnIncrease = document.querySelector('#increase');
@@ -10,6 +12,7 @@ const DECREASE = 'DECREASE';
 const toggleSwitch = () => ({type: TOGGLE_SWITCH });
 const increase = difference => ({type: INCREASE, difference});
 const decrease = () => ({type: DECREASE});
+
 
 const initialState = {
 	toggle: false,
@@ -40,3 +43,18 @@ function reducer(state = initialState, action){
 	}
 
 }
+
+const store = createStore(reducer);
+
+const render = () => {
+	const state = store.getState();
+	
+	if(state.toggle){
+		divToggle.classList.add('active');
+	}else{
+		divToggle.classList.remove('active');
+
+	}
+}
+
+render();
