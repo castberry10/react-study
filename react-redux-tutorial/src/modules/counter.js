@@ -6,7 +6,7 @@ const DECREASE = 'counter/DECREASE';
 
 
 export const increase = () => ({type : INCREASE});
-export const decerase = () => ({type : DECREASE});
+export const decrease = () => ({type : DECREASE});
 
 // 초기상태
 const initalState = {
@@ -21,7 +21,7 @@ function counter(state = initalState, action) {
             };
         case DECREASE:
             return{
-                number: state.number + 1
+                number: state.number - 1
             };
         default:
             return state;    
