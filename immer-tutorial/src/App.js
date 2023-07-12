@@ -12,12 +12,12 @@ const App = () => {
 	e => {
 		const {name, value} = e.target;
 		setForm(
-			produce(form, draft => {
+			produce(draft => {
 					 draft[name] = value;
 			})
 		);
 	},
-	[form]);
+	[]);
 	
 	const onSubmit = useCallback(
 		e=>{
@@ -29,7 +29,7 @@ const App = () => {
 		
 		
 			//array 등록
-			setData(produce(data,draft => {
+			setData(produce(draft => {
 				draft.array.push(info);
 			}));
 			
@@ -39,16 +39,16 @@ const App = () => {
 			});
 			nextId.current += 1;
 		},
-		[data, form.name, form.username]
+		[ form.name, form.username]
 	);
 	
 	const onRemove = useCallback(
 		id => {
-			setData(produce(data,draft=>{
+			setData(produce(draft=>{
 				draft.array.splice(draft.array.findIndex(info => info.id === id), 1);
 			}));
 		},
-		[data]
+		[]
 	);
 	
 	return(
