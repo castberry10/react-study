@@ -39,4 +39,5 @@ const counter = handleActions({
     initalState,
 );
 
+// console.log(counter)
 export default counter;
