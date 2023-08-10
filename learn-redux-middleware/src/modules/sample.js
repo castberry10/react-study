@@ -1,6 +1,6 @@
 import {handleActions} from 'redux-actions';
 import * as api from '../lib/api';
-
+// import createRequestThunk from '../lib/createRequestThunk';
 // 액션타입 선언
 // 한요청당 세 개를 만들어야한다. 
 
@@ -36,7 +36,7 @@ export const getPost = id => async dispatch => {
 export const getUsers = () => async dispatch => {
 	dispatch({type: GET_USERS}); // 요청 시작을 알림
 	try{
-		const response = await api.getUsers(id);
+		const response = await api.getUsers();
 		dispatch({
 			type: GET_USERS_SUCCESS,
 			payload: response.data
