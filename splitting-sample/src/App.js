@@ -16,11 +16,15 @@ function App(){
 		setVisible(true);
 	};
 	
+	const onMouseOver = () => {
+		SplitMe.preload(); // 마우스커서만 올려도 로딩 시작 -> 더 좋은 유저 사용 경험
+	};
+	
 	return(
 		<div className="App">
 			<header className="App-header">
         	<img src={logo} className="App-logo" alt="logo" />
-        	<p onClick={onClick}>Hello react!</p>
+        	<p onClick={onClick} onMouseOver={onMouseOver}>Hello react!</p>
 			{visible && <SplitMe/>}
 			</header>
     	</div>
