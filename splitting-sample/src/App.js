@@ -5,7 +5,9 @@ import {useState, Suspense} from 'react';
 import React from 'react';
 import loadable from '@loadable/component';
 
-const SplitMe = loadable(()=> import ('./SplitMe'));
+const SplitMe = loadable(()=> import ('./SplitMe'), {
+	fallback: <div>loading...</div>
+});
 
 function App(){
 	
