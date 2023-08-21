@@ -3,8 +3,9 @@ import './App.css';
 import {Component} from 'react';
 import {useState, Suspense} from 'react';
 import React from 'react';
+import loadable from '@loadable/component';
 
-const SplitMe = React.lazy(()=> import ('./SplitMe'));
+const SplitMe = loadable(()=> import ('./SplitMe'));
 
 function App(){
 	
@@ -18,9 +19,7 @@ function App(){
 			<header className="App-header">
         	<img src={logo} className="App-logo" alt="logo" />
         	<p onClick={onClick}>Hello react!</p>
-			<Suspense fallback={<div>loading...</div>}>
-				{visible && <SplitMe/>}
-			</Suspense>
+			{visible && <SplitMe/>}
 			</header>
     	</div>
 	);
