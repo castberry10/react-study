@@ -3,6 +3,7 @@ import Menu from './components/Menu';
 import RedPage from './pages/RedPage';
 import BluePage from './pages/BluePage';
 
+
 function App() {
   return (
     	<div>
