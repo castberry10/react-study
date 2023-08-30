@@ -1,4 +1,5 @@
 // 웹팩환경설정 파일
+const nodeExternals = require('webpack-node-externals');
 const paths = require('./paths');
 
 module.exports = {
@@ -141,7 +142,7 @@ module.exports = {
 		/* 
 		 react, react-dom/server 등의 라이브러리를 import로 불러오면 node_modules에서 찾아 사용함
 		*/
-	}
-	
+	},
+	externals: [nodeExternals()]
 };
 /* 로더 설정 */
