@@ -1,7 +1,7 @@
 // 웹팩환경설정 파일
 const nodeExternals = require('webpack-node-externals');
 const paths = require('./paths');
-const GetCSSModuleLocalIdnet = require('react-duv-utils/getCSSModuleLocalIdent');
+const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
 const webpack = require('webpack');
 const getClientEnvironment = require('./env');
 
@@ -10,7 +10,7 @@ const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
 
-const enc = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
+const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
 module.exports = {
 	mode: 'production', // 프로덕션 모드 설정 -> 최적화 옵션 활성화
 	entry: paths.ssrIndexJS, // 엔트리 경로
