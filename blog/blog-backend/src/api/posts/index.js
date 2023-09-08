@@ -9,11 +9,11 @@ const printInfo = ctx => {
 	};
 };
 
-post.get('/', printInfo);
-post.post('/', printInfo);
-post.get('/:id', printInfo);
-post.delete('/:id', printInfo);
-post.put('/', printInfo);
-post.patch('/', printInfo);
+posts.get('/', printInfo);
+posts.post('/', printInfo);
+posts.get('/:id', printInfo);
+posts.delete('/:id', printInfo);
+posts.put('/:id', printInfo);
+posts.patch('/:id', printInfo);
 
 module.exports = posts;
