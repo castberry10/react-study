@@ -102,11 +102,11 @@ exports.replace = ctx => {
 };
 
 /* 포스트 수정(특정필두 변경)
-PUT /api/posts/:id
+PATCH /api/posts/:id
 {title, body}
 */
 
-exports.replace = ctx => {
+exports.update = ctx => {
 	//PATCH 메서드는 전체 포스트 정보를 입력하여 데이터를 통째로 교체할때 사용
 	const {id} = ctx.params;
 	//해당 id를 가진 post가 몇 번째인지 확인
