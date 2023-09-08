@@ -1,4 +1,4 @@
-let posrId = 1 // id 초기값
+let postId = 1 // id 초기값
 
 // posts 배열 초기 데이터
 const posts = [
