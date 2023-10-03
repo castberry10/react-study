@@ -1,5 +1,6 @@
 const Post = require('../../models/post');
 const mongoose = require('mongoose');
+const Joi = require('joi'); // 쉬운 요청 body 검증을 위한 라이브러리
 
 const {ObjectId} = mongoose.Types;
 
@@ -14,6 +15,21 @@ exports.checkObjectId = (ctx, next) => {
 
 // export const write = ctx => {}; 와 같다. 
 exports.write = async ctx => {
+	const schema = Joi.object().kets({
+		// 객체가 다음 필드를 가지고 있음을 검증
+		title: Joi.string().required(), //required()가 있으면 필수 항목
+		body: Joi.string().required(),
+		tags: Joi.array()
+				.items(Joi.string())
+				.required(), // 문자열로 이루어진 배열
+	});
+	const result = schema.validate(ctx.request.body);
+	if(result.error){
+		ctx.status = 400; // bad request
+		ctx.body = result.error;
+		return;
+	}
+	// - - - 위 코드는 request body 검증 
 	const {title, body, tags} = ctx.request.body;
 	const post = new Post({
 		title,
