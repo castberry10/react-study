@@ -7,11 +7,12 @@ const bodyParser = require('koa-bodyparser');
 const mongoose = require('mongoose');
 
 const {PORT, MONGO_URI} = process.env;
-
+const createFakeData = require('./createFakeData');
 
 mongoose.connect(MONGO_URI)
 	.then(()=>{
 	console.log('Connected to MongoDB')
+	// createFakeData(); fake 데이터 생성
 	})
 	.catch(e => {
 	console.error(e);
