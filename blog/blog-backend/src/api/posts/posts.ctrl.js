@@ -1,8 +1,18 @@
 const Post = require('../../models/post');
+const mongoose = require('mongoose');
 
-// export const write = ctx => {};
-// export const list = ctx => {};
+const {ObjectId} = mongoose.Types;
 
+exports.checkObjectId = (ctx, next) => {
+	const {id} = ctx.params;
+	if (!ObjectId.isValid(id)){
+		ctx.status = 400; // bad request
+		return;
+	}
+	return next();
+};
+
+// export const write = ctx => {}; 와 같다. 
 exports.write = async ctx => {
 	const {title, body, tags} = ctx.request.body;
 	const post = new Post({
