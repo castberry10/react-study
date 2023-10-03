@@ -15,7 +15,7 @@ exports.checkObjectId = (ctx, next) => {
 
 // export const write = ctx => {}; 와 같다. 
 exports.write = async ctx => {
-	const schema = Joi.object().kets({
+	const schema = Joi.object().keys({
 		// 객체가 다음 필드를 가지고 있음을 검증
 		title: Joi.string().required(), //required()가 있으면 필수 항목
 		body: Joi.string().required(),
@@ -79,6 +79,21 @@ exports.remove = async ctx => {
 };
 exports.update = async ctx => {
 	const {id} = ctx.params;
+	// - - write와 다르게 required가 없다. 
+	const schema = Joi.object().keys({
+		// 객체가 다음 필드를 가지고 있음을 검증
+		title: Joi.string(), //required()가 있으면 필수 항목
+		body: Joi.string(),
+		tags: Joi.array()
+				.items(Joi.string()), // 문자열로 이루어진 배열
+	});
+	const result = schema.validate(ctx.request.body);
+	if(result.error){
+		ctx.status = 400; // bad request
+		ctx.body = result.error;
+		return;
+	}
+	// -- 
 	try{
 		const post = await Post.findByIdAndUpdate(id, ctx.request.body, {
 			new: true // 이값이 true면 업데이트된 데이터를 반환, false라면 업데이트되기 전 데이터를 반환
