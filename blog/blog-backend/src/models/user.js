@@ -8,6 +8,7 @@ const UserSchema = new Schema({
 });
 
 // 사용자정의 인스턴트 메서드
+//화살표 함수를 사용하면 this로 문서인스턴스를 못 가르킴
 UserSchema.methods.setPassword = async function(password){
 	const hash = await bcrypt.hash(password, 10);
 	this.hashedPassword = hash;
@@ -16,6 +17,12 @@ UserSchema.methods.setPassword = async function(password){
 UserSchema.methods.checkPassword = async function(password){
 	const result = await bcrypt.compare(password, this.hashedPassword);
 	retrun result; // true / false
+};
+
+//스태틱메서드
+//여기서 this는 모델을 가르킨다. 
+UserSchema.statics.findByUsername = function(username){
+	return this.findOne({username});
 };
 
 
