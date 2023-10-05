@@ -59,6 +59,7 @@ exports.list = async ctx => {
 		const postCount = await Post.countDocuments().exec();
 		ctx.set('Last-Page', Math.ceil(postCount/10)); //커스텀 http 헤더
 		// ctx.body = posts;
+		//toJSON()쓰기 싫으면 .exec()전에 lean()써도 가능
 		ctx.body = posts.map(post => post.toJSON()).map(post => ({
 			...post,
 			body:
