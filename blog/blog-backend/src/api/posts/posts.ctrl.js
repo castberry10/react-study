@@ -56,6 +56,8 @@ exports.list = async ctx => {
 	}
 	try{
 		const posts = await Post.find().sort({_id: -1}).limit(10).skip((page-1) * 10).exec();//sort({_id: -1}) <- 역순(-1이면 내림차순) .limit(10) 보이는 개수 제한
+		const postCount = await Post.countDocuments().exec();
+		ctx.set('Last-Page', Math.ceil(postCount/10)); //커스텀 http 헤더
 		ctx.body = posts;
 	}catch(e){
 		ctx.throw(500, e);
