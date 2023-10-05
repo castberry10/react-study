@@ -47,7 +47,7 @@ exports.write = async ctx => {
 
 exports.list = async ctx => {
 	try{
-		const posts = await Post.find().sort({_id: -1}).exec();
+		const posts = await Post.find().sort({_id: -1}).limit(10).exec();//sort({_id: -1}) <- 역순(-1이면 내림차순) .limit(10) 보이는 개수 제한
 		ctx.body = posts;
 	}catch(e){
 		ctx.throw(500, e);
