@@ -16,7 +16,7 @@ UserSchema.methods.setPassword = async function(password){
 // 사용자정의 인스턴트 메서드
 UserSchema.methods.checkPassword = async function(password){
 	const result = await bcrypt.compare(password, this.hashedPassword);
-	retrun result; // true / false
+	return result; // true / false
 };
 
 //스태틱메서드
