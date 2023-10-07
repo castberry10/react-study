@@ -1,5 +1,14 @@
-// 
+const Joi = require('joi');
+const User = require('../../models/user');
 
+
+/*
+POST /api/auth/register
+{
+username: 'A',
+password" 'B'
+}
+*/
 exports.register = async ctx => {
 	
 };
