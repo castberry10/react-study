@@ -18,6 +18,12 @@ UserSchema.methods.checkPassword = async function(password){
 	const result = await bcrypt.compare(password, this.hashedPassword);
 	return result; // true / false
 };
+// 사용자정의 인스턴트 메서드
+UserSchema.methods.serialize =  function(){
+	const data = this.toJSON();
+	delete data.hashedPassword;
+	return data;
+};
 
 //스태틱메서드
 //여기서 this는 모델을 가르킨다. 
