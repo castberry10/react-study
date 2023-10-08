@@ -87,7 +87,13 @@ exports.login = async ctx => {
 };
 
 exports.check = async ctx => {
-	
+	const {user} = ctx.state;
+	if(!user){
+		//login 중이 아니다. 
+		ctx.status = 401//Unauthorized
+		return;
+	}
+	ctx.body = user;
 };
 
 exports.logout = async ctx => {
