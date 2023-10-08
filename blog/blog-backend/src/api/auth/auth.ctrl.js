@@ -96,7 +96,11 @@ exports.check = async ctx => {
 	ctx.body = user;
 };
 
+/*
+POST /api/auth/logout
+*/
 exports.logout = async ctx => {
-	
+	ctx.cookies.set('access_token');
+	ctx.status = 204; //No content
 };
 
