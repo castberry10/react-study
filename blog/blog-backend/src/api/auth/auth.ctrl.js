@@ -41,7 +41,7 @@ exports.register = async ctx => {
 		await user.setPassword(password);
 		await user.save();
 		
-		ctx.body = user.serialize;
+		ctx.body = user.serialize();
 	} catch(e){
 		ctx.throw(500, e);
 	}
