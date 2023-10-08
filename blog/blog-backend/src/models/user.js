@@ -1,6 +1,7 @@
 const mongoose = require('mongoose'); // common js 
 const {Schema} = require('mongoose');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const UserSchema = new Schema({
 	username: String,
@@ -24,7 +25,21 @@ UserSchema.methods.serialize =  function(){
 	delete data.hashedPassword;
 	return data;
 };
-
+// 사용자정의 인스턴트 메서드
+UserSchema.methods.generateToken =  function(){
+	const token = jwt.sign(
+		//첫번째 인자는 토큰에 넣고 싶은 데이터
+		{
+			_id: this.id,
+			username: this.username,
+		},
+		process.env.JWT_SECRET,
+		{
+			expiresIn: '7d', // 7일간 유효
+		},
+	);
+	return token
+};
 //스태틱메서드
 //여기서 this는 모델을 가르킨다. 
 UserSchema.statics.findByUsername = function(username){
