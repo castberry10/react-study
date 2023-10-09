@@ -24,6 +24,15 @@ exports.getPostById = async (ctx, next) => {
 	}
 };
 
+exports.checkOwnPost = (ctx, next) => {
+	const {user, post} = ctx.state;
+	if (post.user._id.toString() !== user._id){
+		ctx.status = 403;
+		return;
+	}
+	return next();
+};
+
 // export const write = ctx => {}; 와 같다. 
 exports.write = async ctx => {
 	const schema = Joi.object().keys({
