@@ -65,7 +65,10 @@ exports.write = async ctx => {
 		ctx.throw(500, e);
 	}
 };
+/*
+GET /api/posts?username=&tag=&page=
 
+*/
 exports.list = async ctx => {
 	//query는 문자열이어서 숫자로 변환
 	//default 값으로 1을 사용
@@ -75,9 +78,18 @@ exports.list = async ctx => {
 		ctx.status = 400
 		return
 	}
+	
+	const {tag, username} = ctx.query;
+	//tag, username 값이 유효하면 객체 안에 넣고, 그렇지 않으면 넣지않음
+	
+	const query = {
+		...(username ? {'user.username': username}: {}),
+		...(tag ? { tags: tag} : {}),
+	};
+	
 	try{
-		const posts = await Post.find().sort({_id: -1}).limit(10).skip((page-1) * 10).exec();//sort({_id: -1}) <- 역순(-1이면 내림차순) .limit(10) 보이는 개수 제한
-		const postCount = await Post.countDocuments().exec();
+		const posts = await Post.find(query).sort({_id: -1}).limit(10).skip((page-1) * 10).exec();//sort({_id: -1}) <- 역순(-1이면 내림차순) .limit(10) 보이는 개수 제한
+		const postCount = await Post.countDocuments(query).exec();
 		ctx.set('Last-Page', Math.ceil(postCount/10)); //커스텀 http 헤더
 		// ctx.body = posts;
 		//toJSON()쓰기 싫으면 .exec()전에 lean()써도 가능
