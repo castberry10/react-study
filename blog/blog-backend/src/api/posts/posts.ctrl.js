@@ -4,13 +4,24 @@ const Joi = require('joi'); // 쉬운 요청 body 검증을 위한 라이브러�
 
 const {ObjectId} = mongoose.Types;
 
-exports.checkObjectId = (ctx, next) => {
+exports.getPostById = async (ctx, next) => {
 	const {id} = ctx.params;
 	if (!ObjectId.isValid(id)){
 		ctx.status = 400; // bad request
 		return;
 	}
-	return next();
+	try{
+		const post = await Post.findById(id);
+		//포스트가 존재하지 않을때 
+		if (!post){
+			ctx.status = 404;
+			return;
+		}
+		ctx.state.post = post;
+		return next();
+	}catch(e){
+		ctx.throw(e);
+	}
 };
 
 // export const write = ctx => {}; 와 같다. 
@@ -72,17 +83,7 @@ exports.list = async ctx => {
 	
 };
 exports.read = async ctx => {
-	const {id} = ctx.params;
-	try{
-		const post =await Post.findById(id).exec();
-		if (!post){
-			ctx.status = 404;
-			return;
-		}
-		ctx.body = post;
-	}catch (e){
-		ctx.throw(500, e);
-	}
+	ctx.body = ctx.state.post;
 };
 exports.remove = async ctx => {
 	const {id} = ctx.params;

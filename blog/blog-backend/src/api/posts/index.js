@@ -13,7 +13,7 @@ post.get('/', postsCtrl.read);
 post.delete('/', checkLoggedIn, postsCtrl.remove);
 post.patch('/', checkLoggedIn, postsCtrl.update);
 
-posts.use('/:id', postsCtrl.checkObjectId, post.routes());
+posts.use('/:id', postsCtrl.getPostById, post.routes());
 
 // - 위 아래 동일 기능 -
 // posts.get('/', postsCtrl.list);
