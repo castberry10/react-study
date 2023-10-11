@@ -14,7 +14,22 @@ import WritePage from './pages/WritePage';
 <Route path="/@:username">
 		  	<Route index element={<PostListPage/>}/>
 		  	<Route path=":postId" element={<PostPage/>}/>
-		  </Route>
+</Route>
+- - - 
+리액트 라우터 6.5 에서 @가 들어가는 형태의 파라미터 지원을 없앴다고 합니다.
+
+따라서, App.js 에서
+
+      <Route path="/:username">
+        <Route index element={<PostListPage />} />
+        <Route path=":postId" element={<PostPage />} />
+      </Route>
+이렇게 /@:username -> /:username 으로 바꿔주세요.
+
+그리고 이후 username을 사용해야 할 때는 다음과 같이 코드를 작성하시면 됩니다.
+
+  const params = useParams();
+  const username = params.username.split('@')[1];
 */
 function App() {
   return (
