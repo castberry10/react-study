@@ -4,7 +4,7 @@ const SAMPLE_ACTION = 'auth/SAMPLE_ACTION';
 
 export const sampleAction = createAction(SAMPLE_ACTION);
 
-const initalState = {};
+const initialState = {};
 
 const auth = handleActions(
 	{
