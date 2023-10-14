@@ -4,7 +4,7 @@ import AuthForm from "../components/auth/AuthFrom";
 const LoginPage = () => {
 	return (
 		<AuthTemplate>
-			<AuthForm></AuthForm>
+			<AuthForm type="login"></AuthForm>
 		</AuthTemplate>
 	);
 }
