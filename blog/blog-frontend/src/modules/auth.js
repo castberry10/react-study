@@ -1,13 +1,12 @@
 import {createAction, handleActions} from 'redux-actions';
-import produce from 'immer';
+import {produce} from 'immer';
 
-const CHANDE_FIELD = 'auth/CHANGE_FIELD';
+const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 const INITIALIZE_FORM = 'auth/SAMPLE_ACTION';
 
-export const sampleAction = createAction(SAMPLE_ACTION);
 
 
-export const changeField = createAction(CHANDE_FIELD, 
+export const changeField = createAction(CHANGE_FIELD, 
 	({form, key, value}) => ({
 		form, // register, login
 		key, // username, password, passwordConfirm
