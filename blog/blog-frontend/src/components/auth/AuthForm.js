@@ -72,6 +72,7 @@ const AuthForm = ({type, form, onChange, onSubmit}) => {
                 <StyledInput 
                     autoComplete="new-password"
                     name="password"
+					type="password"
                     placeholder="비밀번호"
 					onChange={onChange}
 					value={form.password}
@@ -80,6 +81,7 @@ const AuthForm = ({type, form, onChange, onSubmit}) => {
                     <StyledInput
                     autoComplete="new-password"
                     name = "passwordConfirm"
+					type="password"
                     placeholder="비밀번호 확인"
 					onChange={onChange}
 					value={form.passwordConfirm}
