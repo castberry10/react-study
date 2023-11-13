@@ -31,7 +31,7 @@ function loadUser(){
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
 sagaMiddleware.run(rootSaga);
-loadUser();
+loadUser(); //  sagaMiddleware.run이 된 후에 loadUser가 호출되어야함 
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
