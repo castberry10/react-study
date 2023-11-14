@@ -9,7 +9,6 @@ const HeaderBlock = styled.div`
 	background: white;
 	box-shadow: 0px 2px 3px rgba(0,0,0,0.08);
 `;
-
 /**
  * Responsive 컴포넌트의 속성에 스타일 추가, 컴포넌트 생성
  */
@@ -41,7 +40,7 @@ const UserInfo = styled.div`
 	margin-right: 1rem;
 `
 
-const Header = ({user}) => {
+const Header = ({user, onLogout}) => {
 	return (
 	<>
 		<HeaderBlock>
@@ -52,15 +51,13 @@ const Header = ({user}) => {
 				{user ? (
 					<div className="right">
 						<UserInfo>{user.username}</UserInfo>
-						<Button>로그아웃</Button>
+						<Button onClick={onLogout}>로그아웃</Button>
 					</div>
 				) : (
 					<div className="right">
 						<Button to = '/login'>로그인</Button>
 					</div>
 				)}
-				
-			
 			</Wrapper>
 		</HeaderBlock>
 		<Spacer/>
