@@ -5,36 +5,36 @@ const Joi = require('joi'); // 쉬운 요청 body 검증을 위한 라이브러�
 const {ObjectId} = mongoose.Types;
 
 exports.getPostById = async (ctx, next) => {
-	const {id} = ctx.params;
-	if (!ObjectId.isValid(id)){
-		ctx.status = 400; // bad request
-		return;
-	}
-	try{
-		const post = await Post.findById(id);
-		//포스트가 존재하지 않을때 
-		if (!post){
-			ctx.status = 404;
-			return;
-		}
-		ctx.state.post = post;
-		return next();
-	}catch(e){
-		ctx.throw(e);
-	}
+  const { id } = ctx.params;
+  if (!ObjectId.isValid(id)) {
+    ctx.status = 400; // Bad Request
+    return;
+  }
+  try {
+    const post = await Post.findById(id);
+    // 포스트가 존재하지 않을 때
+    if (!post) {
+      ctx.status = 404; // Not Found
+      return;
+    }
+    ctx.state.post = post;
+    return next();
+  } catch (e) {
+    ctx.throw(500, e);
+  }
 };
 
 exports.checkOwnPost = (ctx, next) => {
-	const {user, post} = ctx.state;
-	if (post.user._id.toString() !== user._id){
-		ctx.status = 403;
-		return;
-	}
-	return next();
+  const { user, post } = ctx.state;
+  if (post.user._id.toString() !== user._id) {
+    ctx.status = 403;
+    return;
+  }
+  return next();
 };
 
 // export const write = ctx => {}; 와 같다. 
-exports.write = async ctx => {
+exports.write = async (ctx) => {
 	const schema = Joi.object().keys({
 		// 객체가 다음 필드를 가지고 있음을 검증
 		title: Joi.string().required(), //required()가 있으면 필수 항목
@@ -106,15 +106,14 @@ exports.list = async ctx => {
 exports.read = async ctx => {
 	ctx.body = ctx.state.post;
 };
-exports.remove = async ctx => {
-	const {id} = ctx.params;
-	try{
-		await Post.findByIdAndRemove(id).exec();
-		ctx.status = 204; // No content
-	} catch(e){
-		ctx.throw(500, e)
-	}
-	
+exports.remove = async (ctx) => {
+  const { id } = ctx.params;
+  try {
+    await Post.findByIdAndRemove(id).exec();
+    ctx.status = 204; // No Content (성공은 했지만 응답할 데이터는 없음)
+  } catch (e) {
+    ctx.throw(500, e);
+  }
 };
 exports.update = async ctx => {
 	const {id} = ctx.params;
