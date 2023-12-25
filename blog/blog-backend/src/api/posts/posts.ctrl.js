@@ -1,7 +1,7 @@
 const Post = require('../../models/post');
 const mongoose = require('mongoose');
 const Joi = require('joi'); // 쉬운 요청 body 검증을 위한 라이브러리
-
+const sanitizeHtml = require('sanitize-html');
 const {ObjectId} = mongoose.Types;
 
 exports.getPostById = async (ctx, next) => {
@@ -65,6 +65,16 @@ exports.write = async (ctx) => {
 		ctx.throw(500, e);
 	}
 };
+
+
+
+//
+const removeHtmlAndShorten = body => {
+	const filtered = sanitizeHtml(body, {
+		allowedTags: [],
+	});
+	return filtered.length < 200 ? filtered : `${filtered.slice(0, 200)}...`
+}
 /*
 GET /api/posts?username=&tag=&page=
 
@@ -93,10 +103,8 @@ exports.list = async ctx => {
 		ctx.set('Last-Page', Math.ceil(postCount/10)); //커스텀 http 헤더
 		// ctx.body = posts;
 		//toJSON()쓰기 싫으면 .exec()전에 lean()써도 가능
-		ctx.body = posts.map(post => post.toJSON()).map(post => ({
-			...post,
-			body:
-			post.body.length < 200 ? post.body : `${post.body.slice(0, 200)}...`,
+		ctx.body = posts.map(post => ({
+			body: removeHtmlAndShorten(post.body),
 		})); // post.body.length < 200 ? post.body : `${post.body.slice(0, 200)}...`,가 body가 200자 이상이면 ...로 생략함. 
 	}catch(e){
 		ctx.throw(500, e);
