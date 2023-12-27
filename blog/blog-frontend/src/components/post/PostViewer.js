@@ -25,7 +25,7 @@ font-size: 1.3125rem;
 color: ${palette.gray[8]};
 `
 
-const PostViewer = ({post, error, loading}) => {
+const PostViewer = ({post, error, loading,actionButtons}) => {
 	
 	if (error){
 		if (error.response && error.response.status === 404){
@@ -50,6 +50,7 @@ const PostViewer = ({post, error, loading}) => {
 				/>
 			<Tags tags={tags}/>
 		</PostHead>
+			{actionButtons}
 			<PostContent 
 				dangerouslySetInnerHTML={{__html: body}}
 				/>
