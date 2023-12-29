@@ -25,10 +25,10 @@ margin-left:0.25rem;
 }
 `;
 
-const PostActionButtons = () => {
+const PostActionButtons = ({onEdit}) => {
 	return(
 	<PostActionButtonsBlock>
-		<ActionButton>수정</ActionButton>
+		<ActionButton onClick={onEdit}>수정</ActionButton>
 		<ActionButton>삭제</ActionButton>
 	</PostActionButtonsBlock>
 	);

@@ -62,6 +62,14 @@ const Editor = ({ title, body, onChangeField }) => {
     });
   }, [onChangeField]);
 
+  const mounted = useRef(false); // 마운트되고 단 한번 랜더링 되기위해 이러는거 
+  useEffect(()=>{
+	  if(mounted.current) return;
+	  mounted.current = true;
+	  quillInstance.current.root.innerHTML = body;
+  }, body);
+	
+	
   const onChangeTitle = e => {
     onChangeField({ key: 'title', value: e.target.value });
   };
