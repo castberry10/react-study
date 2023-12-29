@@ -17,7 +17,8 @@ const [
 	UPDATE_POST,
 	UPDATE_POST_SUCCESS,
 	UPDATE_POST_FAILURE,
-] = createRequestActionTypes(`write/UPDATE_POST`);
+] = createRequestActionTypes('write/UPDATE_POST');
+
 const SET_ORIGINAL_POST = 'write/SET_ORIGINAL_POST';
 export const initialize = createAction(INITIALIZE);
 export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({
