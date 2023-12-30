@@ -48,8 +48,8 @@ const AskModal = ({
 	cancelText = '취소',
 	onConfirm,
 	onCancel,
-})=> {
-	if(!visible) return;
+}) => {
+	if(!visible) return null;
 	return(
 		<Fullscreen>
 			<AskModalBlock>
@@ -61,6 +61,7 @@ const AskModal = ({
 				</div>
 			</AskModalBlock>
 		</Fullscreen>
-	
-	)
+	);
 };
+
+export default AskModal;
