@@ -5,6 +5,11 @@ const Router = require('koa-router');
 const api = require('./api');
 const bodyParser = require('koa-bodyparser');
 const mongoose = require('mongoose');
+
+const serve = require('koa-static');
+const path = require('path');
+const send = require('koa-send');
+
 const jwtMiddleware = require('./lib/jwtMiddleware');
 
 const {PORT, MONGO_URI} = process.env;
@@ -31,6 +36,16 @@ app.use(jwtMiddleware);
 
 // app 인스터스에 라우터 적용 
 app.use(router.routes()).use(router.allowedMethods());
+
+const buildDirectory = path.resolve(__dirname, '../../blog-frontend/build');
+app.use(serve(buildDirectory));
+app.use(async ctx => {
+	//NOT FOUND이며 주소가 /api가 아니라면
+	if (ctx.status === 404 && ctx.path.indexOf('api') !== 0){
+		//index.html
+		await send(ctx, 'index.html', {root: buildDirectory});
+	}
+});
 
 const port = PORT || 4000;
 
